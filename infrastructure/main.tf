@@ -37,9 +37,22 @@ resource "azurerm_network_security_group" "main" {
   resource_group_name = azurerm_resource_group.main.name
 
   security_rule {
+    name                       = "HTTP"
+    description                = "Allow outbound HTTP traffic."
+    priority                   = 1001
+    direction                  = "Outbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "80"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
+  security_rule {
     name                       = "SSH"
     description                = "Allow inbound SSH traffic."
-    priority                   = 1001
+    priority                   = 1002
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
@@ -53,7 +66,7 @@ resource "azurerm_network_security_group" "main" {
   security_rule {
     name                       = "IRCS"
     description                = "Allow inbound IRCS traffic."
-    priority                   = 1002
+    priority                   = 1003
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"

@@ -13,6 +13,8 @@ services:
     volumes:
       - ./config/soju.config:/etc/soju/config:ro
       - ./state:/state:rw
+      - /etc/letsencrypt/live/${DOMAIN}/privkey.pem:/cert/priv.pem:ro
+      - /etc/letsencrypt/live/${DOMAIN}/fullchain.pem:/cert/cert.pem:ro
 
     networks:
       - main
