@@ -1,0 +1,4 @@
+networks:
+  main:
+    name: main
+    driver: bridge

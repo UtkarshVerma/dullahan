@@ -1,0 +1,4 @@
+name: dullahan
+
+include:
+  - ./services/soju/compose.yaml

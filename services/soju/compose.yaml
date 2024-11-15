@@ -1,0 +1,20 @@
+include:
+  - ../compose.common.yaml
+
+services:
+  soju:
+    container_name: soju
+    read_only: true
+    build:
+      context: .
+    ports:
+      - 6697:6697
+
+    volumes:
+      - ./config/soju.config:/etc/soju/config:ro
+      - ./state:/state:rw
+
+    networks:
+      - main
+
+    restart: unless-stopped
