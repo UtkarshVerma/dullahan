@@ -4,6 +4,7 @@ include:
 services:
   soju:
     container_name: soju
+    hostname: ${DOMAIN}
     read_only: true
     build:
       context: .
