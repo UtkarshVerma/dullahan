@@ -31,7 +31,6 @@ resource "azurerm_public_ip" "main" {
   sku                 = "Basic"
 }
 
-// Allow inbound SSH traffic.
 resource "azurerm_network_security_group" "main" {
   name                = "${var.resource_prefix}-network-security-group"
   location            = azurerm_resource_group.main.location
@@ -39,12 +38,27 @@ resource "azurerm_network_security_group" "main" {
 
   security_rule {
     name                       = "SSH"
+    description                = "Allow inbound SSH traffic."
     priority                   = 1001
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "22"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
+  // Allow inbound IRCS traffic.
+  security_rule {
+    name                       = "IRCS"
+    description                = "Allow inbound IRCS traffic."
+    priority                   = 1002
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "6697"
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
