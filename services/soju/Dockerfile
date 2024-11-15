@@ -1,4 +1,4 @@
-FROM golang:1.23-alpine as builder
+FROM golang:1.23-alpine AS builder
 ARG VERSION=0.8.2
 
 WORKDIR /src
@@ -12,6 +12,6 @@ RUN wget https://codeberg.org/emersion/soju/releases/download/v${VERSION}/soju-$
 RUN make soju
 
 
-FROM scratch
+FROM alpine:3.20
 COPY --from=builder /src/soju /src/sojudb /usr/local/bin/
 ENTRYPOINT [ "soju" ]
